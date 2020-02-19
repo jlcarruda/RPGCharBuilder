@@ -8,5 +8,6 @@ export default interface ICharacter {
   getTotalExp(): number;
   getExpToNextLevel(): number;
   addExp(experience: number): number;
+
   getClass(): IClass;
 };

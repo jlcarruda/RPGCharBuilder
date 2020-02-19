@@ -1,3 +1,7 @@
+import IClassAbility from "./IClassAbility";
+
 export default interface IClass {
-  name: string;
+  getName(): string;
+  getClassAbilitiesList(): IClassAbility[]; // class abilities list
+  getClassAbilitiesUntilLevel(level: number): IClassAbility[];
 }
