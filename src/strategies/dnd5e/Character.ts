@@ -3,10 +3,9 @@ import ISystem from 'src/domain/interfaces/ISystem';
 import IClass from 'src/domain/interfaces/IClass';
 import IAbility from 'src/domain/interfaces/IAbility';
 
-export default class Character implements ICharacter {
+export default class DND5eCharacter implements ICharacter {
   public name: string;
 
-  private system: ISystem;
   private primaryAbilities: IAbility[];
   private secondaryAbilities: IAbility[];
   private experience: number;
@@ -14,13 +13,11 @@ export default class Character implements ICharacter {
   private characterClass: IClass;
 
   constructor(
-    system: ISystem,
     name: string,
     charClass: IClass,
     primaryAbilities: IAbility[],
     secondaryAbilities: IAbility[],
   ) {
-    this.system = system;
     this.name = name;
     this.characterClass = charClass;
     this.level = 1;
@@ -54,8 +51,8 @@ export default class Character implements ICharacter {
     return this.experience;
   }
 
-  public getExpToNextLevel(): number {
-    return this.system.checkExperienceToNextLevel(this.experience, this.level);
+  public getExpToNextLevel(system: ISystem): number {
+    return system.checkExperienceToNextLevel(this.experience, this.level);
   }
 
   public addExp(experience: number): number {

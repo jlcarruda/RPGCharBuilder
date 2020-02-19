@@ -1,5 +1,6 @@
 import IClass from './IClass';
 import IRace from './IRace';
+import ICharacter from './ICharacter';
 
 export default interface ISystem {
   // Getters
@@ -9,6 +10,9 @@ export default interface ISystem {
   getRaceList(): IRace[];
   getMaxLevel(): number;
   getLevelExperienceLadder(): {[P: number]: number};
+
+  // Factories
+  createCharacter(): ICharacter;
 
   // Checkers
   checkExperienceToNextLevel(charExp: number, charLevel: number): number;

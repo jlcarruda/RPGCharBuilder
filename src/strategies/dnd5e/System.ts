@@ -1,11 +1,16 @@
 import ISystem from 'src/domain/interfaces/ISystem';
 import IClass from 'src/domain/interfaces/IClass';
 import IRace from 'src/domain/interfaces/IRace';
+import DND5eCharacterFactory from './factories/CharacterFactory';
 
 type AbilityDescription = {initials: string; name: string};
 type LevelingLadder = {[P: number]: number};
 
 export default class DND5eSystem implements ISystem {
+  private _instance: DND5eSystem | null = null;
+
+  private characterFactory: DND5eCharacterFactory;
+
   private primaryAbilities: AbilityDescription[] = [
     {initials: 'STR', name: 'Strength'},
     {initials: 'DEX', name: 'Dexterity'},
@@ -42,11 +47,24 @@ export default class DND5eSystem implements ISystem {
     20: 355000,
   };
 
-  private classList: IClass[];
-  private raceList: IRace[];
+  private classList: IClass[] | undefined;
+  private raceList: IRace[] | undefined;
 
-  constructor(classList: IClass[], raceList: IRace[]) {
+  constructor(classList?: IClass[], raceList?: IRace[]) {
+    if (this._instance) {
+      return this._instance;
+    }
     this.classList = classList;
+    this.raceList = raceList;
+
+    this._instance = this;
+  }
+
+  setClassList(classList: IClass[]) {
+    this.classList = classList;
+  }
+
+  setRaceList(raceList: IRace[]) {
     this.raceList = raceList;
   }
 
@@ -59,11 +77,11 @@ export default class DND5eSystem implements ISystem {
   }
 
   getClassList(): IClass[] {
-    return this.classList;
+    return this.classList || [];
   }
 
   getRaceList(): IRace[] {
-    return this.raceList;
+    return this.raceList || [];
   }
 
   getLevelExperienceLadder(): LevelingLadder {
@@ -81,12 +99,4 @@ export default class DND5eSystem implements ISystem {
     }
     return this.levelingLadder[charLevel + 1] - charExp;
   }
-  // getPrimaryAbilitiesList(): string[]; //List with abilities names
-  // getSecondaryAbilitiesList(): string[]; //List with secondary abilities names
-  // getClassList(): IClass[];
-  // getRaceList(): IRace[];
-  // getLevelExperienceLadder(): {[P: number]: number};
-
-  // // Checkers
-  // checkExperienceToNextLevel(charExp: number, charLevel: number): number;
 }
