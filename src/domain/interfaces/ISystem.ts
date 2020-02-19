@@ -7,6 +7,7 @@ export default interface ISystem {
   getSecondaryAbilitiesList(): string[]; //List with secondary abilities names
   getClassList(): IClass[];
   getRaceList(): IRace[];
+  getMaxLevel(): number;
   getLevelExperienceLadder(): {[P: number]: number};
 
   // Checkers

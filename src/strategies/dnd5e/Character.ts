@@ -1,7 +1,7 @@
-import ICharacter from './interfaces/ICharacter';
-import ISystem from './interfaces/ISystem';
-import IClass from './interfaces/IClass';
-import IAbility from './interfaces/IAbility';
+import ICharacter from 'src/domain/interfaces/ICharacter';
+import ISystem from 'src/domain/interfaces/ISystem';
+import IClass from 'src/domain/interfaces/IClass';
+import IAbility from 'src/domain/interfaces/IAbility';
 
 export default class Character implements ICharacter {
   public name: string;
