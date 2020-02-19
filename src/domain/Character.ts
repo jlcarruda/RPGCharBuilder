@@ -7,23 +7,43 @@ export default class Character implements ICharacter {
   public name: string;
 
   private system: ISystem;
-  private abilities: IAbility[];
+  private primaryAbilities: IAbility[];
+  private secondaryAbilities: IAbility[];
   private experience: number;
   private level: number;
   private characterClass: IClass;
 
-  constructor(system: ISystem, name: string, charClass: IClass) {
+  constructor(
+    system: ISystem,
+    name: string,
+    charClass: IClass,
+    primaryAbilities: IAbility[],
+    secondaryAbilities: IAbility[],
+  ) {
     this.system = system;
     this.name = name;
     this.characterClass = charClass;
     this.level = 1;
     this.experience = 0;
 
-    this.abilities = this.system.getAbilitiesList().map(ab => ({[ab]: 0}));
+    this.primaryAbilities = primaryAbilities;
+    this.secondaryAbilities = secondaryAbilities;
+
+    // this.primaryAbilities = this.system
+    //   .getPrimaryAbilitiesList()
+    //   .map(ab => ({[ab]: 0}));
+
+    // this.secondaryAbilities = this.system
+    //   .getSecondaryAbilitiesList()
+    //   .map(ab => ({[ab]: 0}));
   }
 
-  public getAbilities(): IAbility[] {
-    return this.abilities;
+  public getPrimaryAbilities(): IAbility[] {
+    return this.primaryAbilities;
+  }
+
+  public getSecondaryAbilities(): IAbility[] {
+    return this.secondaryAbilities;
   }
 
   public getLevel(): number {
