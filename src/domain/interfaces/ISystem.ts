@@ -11,8 +11,8 @@ export default interface ISystem {
   getMaxLevel(): number;
   getLevelExperienceLadder(): {[P: number]: number};
 
-  // Factories
-  createCharacter(): ICharacter;
+  // Prototypes
+  createCharacter(name: string, charClass: IClass, race: IRace): ICharacter;
 
   // Checkers
   checkExperienceToNextLevel(charExp: number, charLevel: number): number;

@@ -1,6 +1,7 @@
 import IClass from './IClass';
 import IAbility from './IAbility';
 import ISystem from './ISystem';
+import IRace from './IRace';
 
 export default interface ICharacter {
   name: string;
@@ -12,4 +13,5 @@ export default interface ICharacter {
   addExp(experience: number): number;
 
   getClass(): IClass;
-};
+  getRace(): IRace;
+}

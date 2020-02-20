@@ -1,15 +1,14 @@
 import ISystem from 'src/domain/interfaces/ISystem';
 import IClass from 'src/domain/interfaces/IClass';
 import IRace from 'src/domain/interfaces/IRace';
-import DND5eCharacterFactory from './factories/CharacterFactory';
+import DND5eCharacter from './Character';
+import ICharacter from 'src/domain/interfaces/ICharacter';
 
 type AbilityDescription = {initials: string; name: string};
 type LevelingLadder = {[P: number]: number};
 
 export default class DND5eSystem implements ISystem {
   private _instance: DND5eSystem | null = null;
-
-  private characterFactory: DND5eCharacterFactory;
 
   private primaryAbilities: AbilityDescription[] = [
     {initials: 'STR', name: 'Strength'},
@@ -98,5 +97,15 @@ export default class DND5eSystem implements ISystem {
       return Infinity;
     }
     return this.levelingLadder[charLevel + 1] - charExp;
+  }
+
+  getCharacterPrototype() {
+    return DND5eCharacter;
+  }
+
+  createCharacter(name: string, charClass: IClass, race: IRace): ICharacter {
+    const primaries = this.getPrimaryAbilitiesList().map(ab => ({[ab]: 0}));
+    const secondaries = this.getSecondaryAbilitiesList().map(ab => ({[ab]: 0}));
+    return new DND5eCharacter(name, charClass, race, primaries, secondaries);
   }
 }

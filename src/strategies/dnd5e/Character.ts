@@ -2,6 +2,7 @@ import ICharacter from 'src/domain/interfaces/ICharacter';
 import ISystem from 'src/domain/interfaces/ISystem';
 import IClass from 'src/domain/interfaces/IClass';
 import IAbility from 'src/domain/interfaces/IAbility';
+import IRace from 'src/domain/interfaces/IRace';
 
 export default class DND5eCharacter implements ICharacter {
   public name: string;
@@ -11,56 +12,55 @@ export default class DND5eCharacter implements ICharacter {
   private experience: number;
   private level: number;
   private characterClass: IClass;
+  private characterRace: IRace;
 
   constructor(
     name: string,
     charClass: IClass,
+    race: IRace,
     primaryAbilities: IAbility[],
     secondaryAbilities: IAbility[],
   ) {
     this.name = name;
     this.characterClass = charClass;
+    this.characterRace = race;
     this.level = 1;
     this.experience = 0;
 
     this.primaryAbilities = primaryAbilities;
     this.secondaryAbilities = secondaryAbilities;
-
-    // this.primaryAbilities = this.system
-    //   .getPrimaryAbilitiesList()
-    //   .map(ab => ({[ab]: 0}));
-
-    // this.secondaryAbilities = this.system
-    //   .getSecondaryAbilitiesList()
-    //   .map(ab => ({[ab]: 0}));
   }
 
-  public getPrimaryAbilities(): IAbility[] {
+  getPrimaryAbilities(): IAbility[] {
     return this.primaryAbilities;
   }
 
-  public getSecondaryAbilities(): IAbility[] {
+  getSecondaryAbilities(): IAbility[] {
     return this.secondaryAbilities;
   }
 
-  public getLevel(): number {
+  getLevel(): number {
     return this.level;
   }
 
-  public getTotalExp(): number {
+  getTotalExp(): number {
     return this.experience;
   }
 
-  public getExpToNextLevel(system: ISystem): number {
+  getExpToNextLevel(system: ISystem): number {
     return system.checkExperienceToNextLevel(this.experience, this.level);
   }
 
-  public addExp(experience: number): number {
+  addExp(experience: number): number {
     this.experience += experience;
     return this.experience;
   }
 
-  public getClass(): IClass {
+  getClass(): IClass {
     return this.characterClass;
+  }
+
+  getRace(): IRace {
+    return this.characterRace;
   }
 }
